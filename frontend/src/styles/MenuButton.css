@@ -1,0 +1,10 @@
+.menu-toggle {
+    margin-left: 10%;
+    margin-right: 0;
+    background: none;
+    border: none;
+    padding: 0;
+    width: auto;
+    height: auto;
+    cursor: pointer;
+}
