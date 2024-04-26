@@ -1,6 +1,6 @@
 // src/App.js
 import './App.css';
-import Sidebar from './components/Sidebar';
+import Navbar from './components/Navbar';
 import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import OwnersPage from './pages/OwnersPage'; 
 import PropertiesPage from './pages/PropertiesPage';
@@ -11,7 +11,7 @@ function App() {
     return (
         <>
         <Router>
-            <Sidebar />
+            <Navbar />
             <Routes>
                 <Route path="/" exact Component={PropertiesPage} />
                 <Route path="/owners" Component={OwnersPage} />

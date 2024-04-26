@@ -1,0 +1,17 @@
+[
+    {
+        "id": 1,
+        "name": "Property 1",
+        "description": "Description of Property 1"
+    },
+    {
+        "id": 2,
+        "name": "Property 2",
+        "description": "Description of Property 2"
+    },
+    {
+        "id": 3,
+        "name": "Property 3",
+        "description": "Description of Property 3"
+    }
+]

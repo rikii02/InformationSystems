@@ -13,19 +13,19 @@ export const SidebarData = [
     },
     {
         title: 'Owners',
-        path: '/',
+        path: '/owners',
         icon: <FaIcons.FaUser />,
         cName: 'nav-text'
     },
     {
         title: 'Leases',
-        path: '/',
+        path: '/leases',
         icon: <IoIcons.IoIosPaper />,
         cName: 'nav-text'
     }, 
     {
         title: 'Accounting',
-        path: '/',
+        path: '/accounting',
         icon: <FaIcons.FaReceipt />,
         cName: 'nav-text'
     },
