@@ -1,28 +1,25 @@
 // src/App.js
-import React, { useState } from 'react';
-import MenuButton from './components/MenuButton';
-import Sidebar from './components/Sidebar';
 import './App.css';
+import Navbar from './components/Navbar';
+import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
+import OwnersPage from './pages/OwnersPage'; 
+import PropertiesPage from './pages/PropertiesPage';
+import LeasesPage from './pages/LeasesPage';
+import AccountingPage from './pages/AccountingPage';
 
 function App() {
-    const [isMenuOpen, setIsMenuOpen] = useState(false);
-
-    const toggleMenu = () => {
-        setIsMenuOpen(!isMenuOpen);
-    };
-
-    const closeMenu = () => {
-        setIsMenuOpen(false);
-    };
-
     return (
-        <div className="app">
-            <MenuButton isMenuOpen={isMenuOpen} toggleMenu={toggleMenu} />
-            <Sidebar isMenuOpen={isMenuOpen} closeMenu={closeMenu} />
-            <div className="content" onClick={closeMenu}>
-                <h1>DreamHome</h1>
-            </div>
-        </div>
+        <>
+        <Router>
+            <Navbar />
+            <Routes>
+                <Route path="/" exact Component={PropertiesPage} />
+                <Route path="/owners" Component={OwnersPage} />
+                <Route path="/leases" Component={LeasesPage} />
+                <Route path="/accounting" Component={AccountingPage} />
+            </Routes>
+        </Router>
+        </>
     );
 }
 

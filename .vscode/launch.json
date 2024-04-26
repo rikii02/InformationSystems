@@ -1,0 +1,15 @@
+{
+    // Utilitzeu IntelliSense per aprendre sobre els atributs possibles.
+    // Passeu el cursor per sobre per veure les descripcions dels atributs existents.
+    // Per a més informació, visiteu: https://go.microsoft.com/fwlink/?linkid=830387
+    "version": "0.2.0",
+    "configurations": [
+        {
+            "type": "chrome",
+            "request": "launch",
+            "name": "Iniciar Chrome para localhost",
+            "url": "http://localhost:8080",
+            "webRoot": "${workspaceFolder}"
+        }
+    ]
+}
