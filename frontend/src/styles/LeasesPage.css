@@ -1,0 +1,60 @@
+/* leasespage.css */
+
+/* Estilos para el contenedor principal */
+.leases {
+    margin: 20px;
+  }
+  
+  /* Estilos para el título */
+  .leases h1 {
+    font-size: 24px;
+    color: #333;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos para la tabla */
+  .leases table {
+    width: 100%;
+    border-collapse: collapse;
+    margin-bottom: 20px;
+  }
+  
+  /* Estilos para las celdas de la tabla */
+.expanded{
+    padding: 10px;
+    background-color: #fff;
+}
+
+    
+
+.leases td .total{
+    background-color: rgb(249, 159, 159);
+    border-color: rgb(236, 127, 127) ;  
+}
+
+
+.leases-header {
+    display: flex;
+    justify-content: space-between;
+    align-items: center;
+    margin-bottom: 20px;
+}
+
+.leases-title {
+    font-size: 24px;
+    margin-right: auto; 
+}
+
+.upload-button {
+    padding: 10px 20px;
+    background-color: black;
+    color: white;
+    border: none;
+    border-radius: 5px;
+    cursor: pointer;
+    transition: background-color 0.3s;
+}
+
+.upload-button:hover {
+    background-color: grey;
+}

@@ -1,31 +1,43 @@
 import React, { useState, useEffect } from 'react';
-import propertiesData from '../dbcontent/properties.json'; // Importar el archivo JSON
-
+import propertiesData from '../dbcontent/properties.json'; 
+import '../styles/PropertiesPage.css'
 function PropertiesPage() {
-    const [properties, setProperties] = useState([]);
+    const [properties, setProperties] = useState([]); 
 
     useEffect(() => {
-        // Actualizar el estado con los datos del archivo JSON
-        setProperties(propertiesData);
-    }, []); // La dependencia vacía significa que se ejecutará solo una vez al cargar el componente
+        setProperties(propertiesData); 
+    }, []);
 
+   
     return (
         <div className="properties">
-            <h1>Properties Page</h1>
+            <h1>Properties</h1>
             <table>
                 <thead>
-                    <tr>
-                        <th>ID</th>
-                        <th>Nombre</th>
-                        <th>Descripción</th>
+                    <tr>  
+                        <th>Property ID</th>
+                        <th>Property Status</th>
+                        <th>Property Type</th>
+                        <th>Property Location</th>
+                        <th>Rental Price</th>
+                        <th>Client ID</th>
+                        <th>Client Name</th>
+                        <th>Lease ID</th>
+                        <th>Lease Exp. Date</th>
                     </tr>
                 </thead>
                 <tbody>
                     {properties.map(property => (
                         <tr key={property.id}>
                             <td>{property.id}</td>
-                            <td>{property.name}</td>
-                            <td>{property.description}</td>
+                            <td>{property.status}</td>
+                            <td>{property.type}</td>
+                            <td>{property.location}</td>
+                            <td>{property.rentalprice}</td>
+                            <td>{property.clientid}</td>
+                            <td>{property.clientname}</td>
+                            <td>{property.leaseid}</td>
+                            <td>{property.leaseexpdate}</td>
                         </tr>
                     ))}
                 </tbody>

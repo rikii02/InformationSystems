@@ -1,17 +1,37 @@
 [
     {
         "id": 1,
-        "name": "Property 1",
-        "description": "Description of Property 1"
+        "status": "habited",
+        "type": "apartment",
+        "location": "Geschwister-Scholl-Strasse",
+        "rentalprice": 320,
+        "clientid": 1,
+        "clientname": "Ricard",
+        "leaseid": 1,
+        "leaseexpdate": "09-08-2024"
     },
+    
     {
         "id": 2,
-        "name": "Property 2",
-        "description": "Description of Property 2"
+        "status": "habited",
+        "type": "apartment",
+        "location": "Geschwister-Scholl-Strasse",
+        "rentalprice": 320,
+        "clientid": 2,
+        "clientname": "Lucia",
+        "leaseid": 2,
+        "leaseexpdate": "09-08-2024"
     },
     {
         "id": 3,
-        "name": "Property 3",
-        "description": "Description of Property 3"
+        "status": "habited",
+        "type": "apartment",
+        "location": "Geschwister-Scholl-Strasse",
+        "rentalprice": 320,
+        "clientid": 3,
+        "clientname": "Yusuf",
+        "leaseid": 3,
+        "leaseexpdate": "09-08-2024"
     }
+        
 ]

@@ -1,0 +1,66 @@
+[
+    {
+        "id": 1,
+        "clientName": "Ricard",
+        "clientID": 1,
+        "propertyId": 1,
+        "startDate": "2024-01-01",
+        "endDate": "2024-12-31",
+        "monthlyPayments": [
+            { "month": "January", "amount": 320, "paid": true },
+            { "month": "February", "amount": 320, "paid": true },
+            { "month": "March", "amount": 320, "paid": true },
+            { "month": "April", "amount": 320, "paid": false },
+            { "month": "May", "amount": 320, "paid": false },
+            { "month": "June", "amount": 320, "paid": false },
+            { "month": "July", "amount": 320, "paid": false },
+            { "month": "August", "amount": 320, "paid": false },
+            { "month": "September", "amount": 320, "paid": false },
+            { "month": "October", "amount": 320, "paid": false },
+            { "month": "November", "amount": 320, "paid": false },
+            { "month": "December", "amount": 320, "paid": false }
+        ]
+    },
+    {
+        "id": 2,
+        "clientName": "Lucia",
+        "clientID": 2,
+        "propertyId": 2,
+        "startDate": "2024-02-15",
+        "endDate": "2024-12-15",
+        "monthlyPayments": [
+            { "month": "February", "amount": 320, "paid": true },
+            { "month": "March", "amount": 320, "paid": true },
+            { "month": "April", "amount": 320, "paid": true },
+            { "month": "May", "amount": 320, "paid": true },
+            { "month": "June", "amount": 320, "paid": true },
+            { "month": "July", "amount": 320, "paid": true },
+            { "month": "August", "amount": 320, "paid": true },
+            { "month": "September", "amount": 320, "paid": true },
+            { "month": "October", "amount": 320, "paid": true },
+            { "month": "November", "amount": 320, "paid": true },
+            { "month": "December", "amount": 320, "paid": true }
+        ]
+    },
+    {
+    "id": 3,
+    "clientName": "Yusuf",
+    "clientID": 3,
+    "propertyId": 3,
+    "startDate": "2024-02-15",
+    "endDate": "2024-12-15",
+    "monthlyPayments": [
+        { "month": "February", "amount": 320, "paid": true },
+        { "month": "March", "amount": 320, "paid": true },
+        { "month": "April", "amount": 320, "paid": true },
+        { "month": "May", "amount": 320, "paid": true },
+        { "month": "June", "amount": 320, "paid": true },
+        { "month": "July", "amount": 320, "paid": true },
+        { "month": "August", "amount": 320, "paid": true },
+        { "month": "September", "amount": 320, "paid": true },
+        { "month": "October", "amount": 320, "paid": true },
+        { "month": "November", "amount": 320, "paid": true },
+        { "month": "December", "amount": 320, "paid": true }
+    ]
+    }
+]
