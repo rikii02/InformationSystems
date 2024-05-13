@@ -1,8 +1,10 @@
 import React, { useState } from 'react';
 import leasesData from '../dbcontent/leases.json';
 import '../styles/LeasesPage.css'
+import '../styles/ServiceModal.css'
 
 function LeasesPage() {
+
     const [expandedRows, setExpandedRows] = useState([]);
 
     const handleRowClick = (leaseId) => {
@@ -22,9 +24,22 @@ function LeasesPage() {
             .reduce((total, payment) => total + payment.amount, 0); // Sumar los montos de los pagos no pagados
     };
     
+      const [isModalOpen, setIsModalOpen] = useState(false);
+
     const handleUploadButtonClick = () => {
-        // Aquí puedes implementar la lógica para abrir la ventana emergente o modal para cargar un archivo
-        // Por ejemplo, puedes mostrar un modal usando un estado para controlar su visibilidad
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            console.log('Selected file:', file);
+        }
+        handleCloseModal();
     };
 
     return (
@@ -33,6 +48,21 @@ function LeasesPage() {
                 <h1 className="leases-title">Leases</h1>
                 <button className="upload-button" onClick={handleUploadButtonClick}>Upload File</button>
             </div>
+            {isModalOpen && (
+                <div className="modal-container" onClick={handleCloseModal}>
+                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
+                        <h2>Upload Accounting</h2>
+                        <p>Select the accounting data. Make sure the file is in CSV format.</p>
+                        <input
+                            type="file"
+                            onChange={handleFileUpload}
+                            accept=".csv"
+                            lang="en"
+                        />
+                        <button onClick={handleCloseModal}>Cancel</button>
+                    </div>
+                </div>
+            )}
             <table>
                 <thead>
                     <tr>

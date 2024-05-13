@@ -5,7 +5,8 @@ import { BrowserRouter as Router, Routes, Route } from 'react-router-dom';
 import OwnersPage from './pages/OwnersPage'; 
 import PropertiesPage from './pages/PropertiesPage';
 import LeasesPage from './pages/LeasesPage';
-import AccountingPage from './pages/AccountingPage';
+import AccountingPage from './pages/ServicePage';
+import ServicePage from './pages/ServicePage';
 
 function App() {
     return (
@@ -16,7 +17,7 @@ function App() {
                 <Route path="/" exact Component={PropertiesPage} />
                 <Route path="/owners" Component={OwnersPage} />
                 <Route path="/leases" Component={LeasesPage} />
-                <Route path="/accounting" Component={AccountingPage} />
+                <Route path="/services" Component={ServicePage} />
             </Routes>
         </Router>
         </>
