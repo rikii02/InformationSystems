@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../styles/ServicePage.css';
 import '../styles/ServiceModal.css';
 
@@ -6,6 +7,23 @@ function ServicePage() {
     const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchFilters, setSearchFilters] = useState({ month: '', propertyId: '' });
     const [serviceCharges, setServiceCharges] = useState([]); // Aquí debes almacenar tus datos de carga de servicio
+    const [filteredServiceCharges, setFilteredServiceCharges] = useState([]);
+
+    useEffect(() => {
+        fetchServiceCharges();
+    }, []); // Runs only once on component mount
+
+    const fetchServiceCharges = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/getServices');
+            console.log(response.data);
+            const dataArray = Object.values(response.data);
+            setServiceCharges(dataArray);
+        } catch (error) {
+            console.error('Error fetching service charges: ', error);
+        }
+    };
+
 
     const handleUploadButtonClick = () => {
         setIsModalOpen(true);
@@ -18,10 +36,36 @@ function ServicePage() {
     const handleFileUpload = (event) => {
         const file = event.target.files[0];
         if (file) {
-            console.log('Selected file:', file);
-            // Aquí puedes implementar la lógica para procesar el archivo cargado, por ejemplo, parsearlo como CSV y almacenar los datos en el estado
+          console.log('Selected file:', file);
+          const reader = new FileReader();
+          reader.onload = (event) => {
+            const csvData = event.target.result;
+            console.log('CSV data:', csvData);
+            uploadCSV(csvData); // load csv in backend
+          };
+          reader.readAsText(file);
         }
         handleCloseModal();
+      };
+      
+    const uploadCSV = async (csvData) => {
+        try {
+            const formData = new FormData();
+            formData.append('csvFile', csvData); // add csv file
+            console.log(formData.get('csvFile'));
+        
+            // post to create data in backend
+            const response = await axios.post('http://localhost:3000/setServices', formData, {
+                headers: {
+                    'Content-Type': 'multipart/form-data'
+                },
+            });
+
+            console.log('Imported successfully ', response.data);
+            //manage backend response
+        } catch (error) {
+            console.error('Error: ', error);
+      }
     };
 
     const handleSearchChange = (event) => {
@@ -31,18 +75,24 @@ function ServicePage() {
         });
     };
 
-    // Función para filtrar los datos de carga de servicio según los filtros de búsqueda
-    const filteredServiceCharges = serviceCharges.filter(charge => {
-        // Si no se ha ingresado ningún valor de búsqueda, se muestran todos los datos
-        if (!searchFilters.month && !searchFilters.propertyId) {
-            return true;
+    const handleSearchButtonClick = async () => {
+        try {
+            console.log(searchFilters.month);
+            console.log(searchFilters.propertyId);
+            const response = await axios.get('http://localhost:3000/filterServices', {
+                headers: {
+                    PropertyID: searchFilters.propertyId,
+                    month: searchFilters.month,
+                }
+            });
+            console.log('Filtered service charges: ', response.data);
+            setFilteredServiceCharges(response.data);
+
+        } catch (error) {
+            console.error('Error filtering service charges: ', error);
         }
-        // Se filtran los datos según los filtros de búsqueda
-        return (
-            (!searchFilters.month || charge.transactionDate.includes(searchFilters.month)) &&
-            (!searchFilters.propertyId || charge.propertyId === searchFilters.propertyId)
-        );
-    });
+    };
+
 
     return (
         <div className="service">
@@ -74,14 +124,14 @@ function ServicePage() {
                     value={searchFilters.month}
                     onChange={handleSearchChange}
                 />
-                <input
+                {/* <input
                     type="text"
                     name="propertyId"
                     placeholder="Property ID"
                     value={searchFilters.propertyId}
                     onChange={handleSearchChange}
-                />
-                <button className="search-button">Search</button>
+                /> */}
+                <button className="search-button" onClick={handleSearchButtonClick}>Search</button>
             </div>
 
             <table className="transaction-table">
@@ -92,19 +142,35 @@ function ServicePage() {
                         <th>Transaction Date</th>
                         <th>Service Price</th>
                         <th>Service Description</th>
+                        <th>Service Paid</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredServiceCharges.map((charge, index) => (
-                        <tr key={index}>
-                            <td>{charge.transactionId}</td>
-                            <td>{charge.propertyId}</td>
-                            <td>{charge.transactionDate}</td>
-                            <td>{charge.servicePrice}</td>
-                            <td>{charge.serviceDescription}</td>
-                        </tr>
-                    ))}
+                    {searchFilters.month || searchFilters.propertyId ? (
+                        filteredServiceCharges.map((charge, index) => (
+                            <tr key={index}>
+                                <td>{charge.TransactionID}</td>
+                                <td>{charge.PropertyId}</td>
+                                <td>{charge.TransactionDate}</td>
+                                <td>{charge.ServicePrice}</td>
+                                <td>{charge.ServiceDescription}</td>
+                                <td>{charge.ServicePaid}</td>
+                            </tr>
+                        ))
+                    ) : (
+                        serviceCharges.map((charge, index) => (
+                            <tr key={index}>
+                                <td>{charge.TransactionID}</td>
+                                <td>{charge.PropertyId}</td>
+                                <td>{charge.TransactionDate}</td>
+                                <td>{charge.ServicePrice}</td>
+                                <td>{charge.ServiceDescription}</td>
+                                <td>{charge.ServicePaid}</td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
+
             </table>
         </div>
     );
