@@ -1,5 +1,4 @@
 import React, { useState, useEffect } from 'react';
-import axios from 'axios';
 import '../styles/ServicePage.css';
 import '../styles/ServiceModal.css';
 import UploadAccounting from '../components/UploadAccounting';
@@ -7,7 +6,6 @@ import UploadAccounting from '../components/UploadAccounting';
 function ServicePage() {
     const [searchFilters, setSearchFilters] = useState({ month: '', propertyId: '' });
     const [serviceCharges, setServiceCharges] = useState([]); // Aquí debes almacenar tus datos de carga de servicio
-    const [filteredServiceCharges, setFilteredServiceCharges] = useState([]);
 
     useEffect(() => {
         fetchServiceCharges();
@@ -25,23 +23,8 @@ function ServicePage() {
     };
 
 
-    const handleUploadButtonClick = () => {
-        setIsModalOpen(true);
-    };
-
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleFileUpload = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            console.log('Selected file:', file);
-            // Aquí puedes implementar la lógica para procesar el archivo cargado, por ejemplo, parsearlo como CSV y almacenar los datos en el estado
-        }
-        handleCloseModal();
-    };
-
+   
+  
     const handleSearchChange = (event) => {
         setSearchFilters({
             ...searchFilters,
@@ -84,7 +67,6 @@ function ServicePage() {
                     value={searchFilters.propertyId}
                     onChange={handleSearchChange}
                 /> */}
-                <button className="search-button" onClick={handleSearchButtonClick}>Search</button>
             </div>
 
             <table className="transaction-table">

@@ -1,7 +1,6 @@
 // src/OwnerTablePage.js
 
 import React from 'react';
-import '../styles/OwnersPage.css'; // Make sure to create this CSS file for styling
 
 function OwnerTablePage() {
     const owners = [
