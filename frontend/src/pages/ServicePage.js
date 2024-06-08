@@ -1,4 +1,5 @@
-import React, { useState } from 'react';
+import React, { useState, useEffect } from 'react';
+import axios from 'axios';
 import '../styles/ServicePage.css';
 import '../styles/ServiceModal.css';
 import UploadAccounting from '../components/UploadAccounting';
@@ -6,10 +7,41 @@ import UploadAccounting from '../components/UploadAccounting';
 function ServicePage() {
     const [searchFilters, setSearchFilters] = useState({ month: '', propertyId: '' });
     const [serviceCharges, setServiceCharges] = useState([]); // Aquí debes almacenar tus datos de carga de servicio
+    const [filteredServiceCharges, setFilteredServiceCharges] = useState([]);
 
-    
+    useEffect(() => {
+        fetchServiceCharges();
+    }, []); // Runs only once on component mount
 
-   
+    const fetchServiceCharges = async () => {
+        try {
+            const response = await axios.get('http://localhost:3000/getServices');
+            console.log(response.data);
+            const dataArray = Object.values(response.data);
+            setServiceCharges(dataArray);
+        } catch (error) {
+            console.error('Error fetching service charges: ', error);
+        }
+    };
+
+
+    const handleUploadButtonClick = () => {
+        setIsModalOpen(true);
+    };
+
+    const handleCloseModal = () => {
+        setIsModalOpen(false);
+    };
+
+    const handleFileUpload = (event) => {
+        const file = event.target.files[0];
+        if (file) {
+            console.log('Selected file:', file);
+            // Aquí puedes implementar la lógica para procesar el archivo cargado, por ejemplo, parsearlo como CSV y almacenar los datos en el estado
+        }
+        handleCloseModal();
+    };
+
     const handleSearchChange = (event) => {
         setSearchFilters({
             ...searchFilters,
@@ -17,6 +49,7 @@ function ServicePage() {
         });
     };
 
+    // Función para filtrar los datos de carga de servicio según los filtros de búsqueda
     const filteredServiceCharges = serviceCharges.filter(charge => {
         // Si no se ha ingresado ningún valor de búsqueda, se muestran todos los datos
         if (!searchFilters.month && !searchFilters.propertyId) {
@@ -44,14 +77,14 @@ function ServicePage() {
                     value={searchFilters.month}
                     onChange={handleSearchChange}
                 />
-                <input
+                {/* <input
                     type="text"
                     name="propertyId"
                     placeholder="Property ID"
                     value={searchFilters.propertyId}
                     onChange={handleSearchChange}
-                />
-                <button className="search-button">Search</button>
+                /> */}
+                <button className="search-button" onClick={handleSearchButtonClick}>Search</button>
             </div>
 
             <table className="transaction-table">
@@ -62,19 +95,35 @@ function ServicePage() {
                         <th>Transaction Date</th>
                         <th>Service Price</th>
                         <th>Service Description</th>
+                        <th>Service Paid</th>
                     </tr>
                 </thead>
                 <tbody>
-                    {filteredServiceCharges.map((charge, index) => (
-                        <tr key={index}>
-                            <td>{charge.transactionId}</td>
-                            <td>{charge.propertyId}</td>
-                            <td>{charge.transactionDate}</td>
-                            <td>{charge.servicePrice}</td>
-                            <td>{charge.serviceDescription}</td>
-                        </tr>
-                    ))}
+                    {searchFilters.month || searchFilters.propertyId ? (
+                        filteredServiceCharges.map((charge, index) => (
+                            <tr key={index}>
+                                <td>{charge.TransactionID}</td>
+                                <td>{charge.PropertyId}</td>
+                                <td>{charge.TransactionDate}</td>
+                                <td>{charge.ServicePrice}</td>
+                                <td>{charge.ServiceDescription}</td>
+                                <td>{charge.ServicePaid}</td>
+                            </tr>
+                        ))
+                    ) : (
+                        serviceCharges.map((charge, index) => (
+                            <tr key={index}>
+                                <td>{charge.TransactionID}</td>
+                                <td>{charge.PropertyId}</td>
+                                <td>{charge.TransactionDate}</td>
+                                <td>{charge.ServicePrice}</td>
+                                <td>{charge.ServiceDescription}</td>
+                                <td>{charge.ServicePaid}</td>
+                            </tr>
+                        ))
+                    )}
                 </tbody>
+
             </table>
         </div>
     );
