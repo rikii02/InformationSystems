@@ -1,29 +1,15 @@
 import React, { useState } from 'react';
 import '../styles/ServicePage.css';
 import '../styles/ServiceModal.css';
+import UploadAccounting from '../components/UploadAccounting';
 
 function ServicePage() {
-    const [isModalOpen, setIsModalOpen] = useState(false);
     const [searchFilters, setSearchFilters] = useState({ month: '', propertyId: '' });
     const [serviceCharges, setServiceCharges] = useState([]); // Aquí debes almacenar tus datos de carga de servicio
 
-    const handleUploadButtonClick = () => {
-        setIsModalOpen(true);
-    };
+    
 
-    const handleCloseModal = () => {
-        setIsModalOpen(false);
-    };
-
-    const handleFileUpload = (event) => {
-        const file = event.target.files[0];
-        if (file) {
-            console.log('Selected file:', file);
-            // Aquí puedes implementar la lógica para procesar el archivo cargado, por ejemplo, parsearlo como CSV y almacenar los datos en el estado
-        }
-        handleCloseModal();
-    };
-
+   
     const handleSearchChange = (event) => {
         setSearchFilters({
             ...searchFilters,
@@ -31,7 +17,6 @@ function ServicePage() {
         });
     };
 
-    // Función para filtrar los datos de carga de servicio según los filtros de búsqueda
     const filteredServiceCharges = serviceCharges.filter(charge => {
         // Si no se ha ingresado ningún valor de búsqueda, se muestran todos los datos
         if (!searchFilters.month && !searchFilters.propertyId) {
@@ -48,23 +33,8 @@ function ServicePage() {
         <div className="service">
             <div className='service-header'>
                 <h1 className='service-title'>Service Charges</h1>
-                <button className="upload-button" onClick={handleUploadButtonClick}>Upload File</button>
+                <UploadAccounting />
             </div>
-            {isModalOpen && (
-                <div className="modal-container" onClick={handleCloseModal}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <h2>Upload Accounting</h2>
-                        <p>Select the accounting data. Make sure the file is in CSV format.</p>
-                        <input
-                            type="file"
-                            onChange={handleFileUpload}
-                            accept=".csv"
-                            lang="en"
-                        />
-                        <button onClick={handleCloseModal}>Cancel</button>
-                    </div>
-                </div>
-            )}
 
             <div className="search-container">
                 <input

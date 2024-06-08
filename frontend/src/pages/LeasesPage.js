@@ -2,21 +2,9 @@ import React, { useState } from 'react';
 import leasesData from '../dbcontent/leases.json';
 import '../styles/LeasesPage.css'
 import '../styles/ServiceModal.css'
+import UploadAccounting from '../components/UploadAccounting';
 
 function LeasesPage() {
-
-    const [expandedRows, setExpandedRows] = useState([]);
-
-    const handleRowClick = (leaseId) => {
-        const newExpandedRows = [...expandedRows];
-        const rowIndex = expandedRows.indexOf(leaseId);
-        if (rowIndex !== -1) {
-            newExpandedRows.splice(rowIndex, 1);
-        } else {
-            newExpandedRows.push(leaseId);
-        }
-        setExpandedRows(newExpandedRows);
-    };
 
     const calculateTotal = (monthlyPayments) => {
         return monthlyPayments
@@ -46,23 +34,8 @@ function LeasesPage() {
         <div className="leases">
             <div className="leases-header">
                 <h1 className="leases-title">Leases</h1>
-                <button className="upload-button" onClick={handleUploadButtonClick}>Upload File</button>
+                <UploadAccounting />
             </div>
-            {isModalOpen && (
-                <div className="modal-container" onClick={handleCloseModal}>
-                    <div className="modal-content" onClick={(e) => e.stopPropagation()}>
-                        <h2>Upload Accounting</h2>
-                        <p>Select the accounting data. Make sure the file is in CSV format.</p>
-                        <input
-                            type="file"
-                            onChange={handleFileUpload}
-                            accept=".csv"
-                            lang="en"
-                        />
-                        <button onClick={handleCloseModal}>Cancel</button>
-                    </div>
-                </div>
-            )}
             <table>
                 <thead>
                     <tr>
@@ -77,7 +50,7 @@ function LeasesPage() {
                 <tbody>
                     {leasesData.map((lease) => (
                         <React.Fragment key={lease.id}>
-                            <tr onClick={() => handleRowClick(lease.id)}>
+                            <tr>
                                 <td>{lease.id}</td>
                                 <td>{lease.clientName}</td>
                                 <td>{lease.clientID}</td>
@@ -85,35 +58,7 @@ function LeasesPage() {
                                 <td>{lease.startDate}</td>
                                 <td>{lease.endDate}</td>
                             </tr>
-                            {expandedRows.includes(lease.id) && (
-                                <tr>
-                                    <td className='expanded' colSpan="6">
-                                        <table>
-                                            <thead>
-                                                <tr>
-                                                    <th>Month</th>
-                                                    <th>Amount</th>
-                                                    <th>Status</th>
-                                                </tr>
-                                            </thead>
-                                            <tbody>
-                                                {lease.monthlyPayments.map((payment, index) => (
-                                                    <tr key={index}>
-                                                        <td>{payment.month}</td>
-                                                        <td>{payment.amount}€</td>
-                                                        <td>{payment.paid ? "Paid" : "Unpaid"}</td>
-                                                    </tr>
-                                                ))}
-                                                <tr>
-                                                    <td className='total'>Total Debt:</td>
-                                                    <td className='total'>{calculateTotal(lease.monthlyPayments)}€</td>
-                                                    <td className='total'></td>
-                                                </tr>
-                                            </tbody>
-                                        </table>
-                                    </td>
-                                </tr>
-                            )}
+                           
                         </React.Fragment>
                     ))}
                 </tbody>
